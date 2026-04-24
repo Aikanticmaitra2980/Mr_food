@@ -176,7 +176,14 @@ export default function FoodQualityApp() {
                 animate={{ scale: 1, opacity: 1 }}
                 className="relative w-full aspect-[21/9] rounded-[2rem] overflow-hidden shadow-2xl mb-12 border border-white/20"
               >
-                <Image src="/hero.png" alt="Hero" fill className="object-cover" priority />
+                <Image 
+                  src="/hero.png" 
+                  alt="Hero" 
+                  fill 
+                  className="object-cover" 
+                  priority 
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="absolute bottom-8 left-8 text-left">
                   <h2 className="text-3xl font-bold text-white">Live AI Bio-Scanning</h2>
