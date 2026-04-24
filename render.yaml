@@ -1,0 +1,27 @@
+services:
+  # Backend Service (Flask)
+  - type: web
+    name: food-checker-backend
+    env: python
+    region: ohio
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn --chdir backend app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: PORT
+        value: 10000
+
+  # Frontend Service (Next.js)
+  - type: web
+    name: food-checker-frontend
+    env: node
+    region: ohio
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        # This will be the URL of your backend service once deployed
+        value: https://food-checker-backend.onrender.com
