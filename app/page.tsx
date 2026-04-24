@@ -91,7 +91,8 @@ export default function FoodQualityApp() {
     }, 50);
 
     try {
-      const response = await fetch("http://localhost:5000/predict", {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const response = await fetch(`${API_URL}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ image: imageData })
