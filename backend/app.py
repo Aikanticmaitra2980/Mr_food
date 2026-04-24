@@ -12,10 +12,13 @@ import torch
 app = Flask(__name__)
 CORS(app)
 
-# Load a food classification model from Hugging Face
-# We'll use a fast one for demo purposes
-print("Loading Hugging Face model...")
-classifier = pipeline("image-classification", model="microsoft/resnet-50")
+print("Loading Hugging Face model (microsoft/resnet-50)...")
+try:
+    classifier = pipeline("image-classification", model="microsoft/resnet-50")
+    print("Model loaded successfully!")
+except Exception as e:
+    print(f"FAILED to load model: {e}")
+    classifier = None
 
 def analyze_freshness(image_np):
     """
@@ -41,6 +44,9 @@ def analyze_freshness(image_np):
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    print("Received prediction request...")
+    if classifier is None:
+        return jsonify({"success": False, "error": "Model not loaded on server"}), 500
     try:
         data = request.json
         if 'image' not in data:

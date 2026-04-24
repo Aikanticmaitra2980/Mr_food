@@ -6,7 +6,7 @@ services:
     region: ohio
     plan: free
     buildCommand: pip install -r backend/requirements.txt
-    startCommand: gunicorn --chdir backend app:app
+    startCommand: gunicorn --chdir backend --timeout 120 --preload app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.0
